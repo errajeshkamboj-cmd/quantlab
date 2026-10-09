@@ -5,39 +5,77 @@
 
 ## Current status
 
-- **Current phase:** Phase 1 — Requirements & Research Design
-- **Overall status:** Planned / not yet verified against implementation
+- **Current phase:** Phase 1 — Requirements & Research Design. **Documentation delivered; exit gate pending trader review.**
+- **Overall status:** Phase 1 docs complete (`docs/` deliverables below). No application code exists yet; Phases 2–8 not started.
 - **Last updated:** 2026-10-09
-- **Latest verified repository state:** Starter documentation prepared; implementation status must be confirmed by the coding agent after inspecting the repository.
-- **Live order execution:** Disabled / out of scope for Phases 1–7
-- **Current priority:** Convert trading ideas into explicit, testable hypotheses and verify historical data availability.
+- **Verified repository state:** docs-only repository — `README.md`, `Prompts.md`, `CHANGELOG.md`, plus the Phase 1 deliverables in `docs/`. No code, no tests, no CI, no database.
+- **Live order execution:** Disabled / out of scope for Phases 1–7 (Phase 8 gated).
+- **Current priority:** trader review of the Phase 1 deliverables and the open owner questions below; then Phase 2 (verify data sources against official documentation).
 
-> Agent instruction: Update this section after every meaningful task. Never leave stale claims here. Use the actual current date and actual repository/test state. Do not claim work is complete unless it is implemented and verified.
+> Agent instruction: update this section after every meaningful task. Never leave stale claims here. Use the actual current date and actual repository/test state. Do not claim work is complete unless it is implemented and verified.
 
 ## Latest developments
 
-Newest first. The coding agent must replace these starter entries with actual repository changes as work proceeds.
+Newest first.
 
-- **2026-10-09 — Project plan prepared:** Defined an eight-phase roadmap from requirements and data research through gated broker integration.
+- **2026-10-09 — Phase 1 documentation delivered:** created `docs/requirements.md` (Confirmed/Proposed/Unknown/Blocked requirements, out-of-scope, acceptance self-check), `docs/strategy-hypotheses.md` (hypotheses only — no claims), `docs/indicator-specification.md` (explicit or Unknown definitions), `docs/risk-policy-draft.md` (proposed limits + unresolved semantics), `docs/data-feasibility.md` (required fields, coverage needs, candidate sources to verify, gaps), `docs/backtest-methodology.md` (mandatory metrics + look-ahead/overfitting safeguards), `docs/phase-gates.md` (entry/exit criteria for all 8 phases), `docs/DECISIONS.md` (Phase 1 decisions). Restructured this README and appended a `CHANGELOG.md` entry. **No code changed; no tests exist or were run** (documentation-only phase).
+- **2026-10-09 — Project plan prepared:** defined an eight-phase roadmap from requirements and data research through gated broker integration.
 - **2026-10-09 — Agent workflow prepared:** `Prompts.md` defines the phase-by-phase instructions, safety rules, acceptance criteria, and required documentation updates.
-- **Not yet verified:** No implementation or tests are claimed by this starter README. The agent must inspect the repository and update this log.
 
 ## Owner action required
 
-The following questions need trader/owner input. Mark each as Open, Answered, or Deferred and record the answer/date.
+The following questions need trader/owner input. Mark each as Open, Answered, or Deferred and record the answer/date. Do not invent answers.
 
-1. **Trend definition:** Which trend measure should be researched first?
-2. **PCR definition:** Use OI-based PCR, volume-based PCR, or compare both?
-3. **Hedged structures:** Which structures should be included in the first research batch?
-4. **Strike/expiry selection:** What selection rules should be investigated?
-5. **Trend reversal:** How should a reversal be confirmed?
-6. **Daily loss limit:** Does the proposed ₹5,000 limit include unrealized P&L, charges, and slippage?
-7. **Existing positions:** What should happen to open positions when the daily loss limit is reached?
-8. **Historical data:** What permitted NIFTY options data is available at five-minute resolution, for what date range, and at what cost?
-9. **Evaluation criteria:** Beyond the aspirational win-rate goal above 55%, what drawdown, profit factor, net return, and trade-count requirements should be considered?
-10. **Risk scope:** Does the proposed ₹5,000 per-trade loss limit apply per leg, per strategy position, or to the complete strategy?
+0. **Review Phase 1 deliverables:** review `docs/requirements.md`, `docs/strategy-hypotheses.md`, `docs/indicator-specification.md`, `docs/risk-policy-draft.md`, `docs/data-feasibility.md`, `docs/backtest-methodology.md`, `docs/phase-gates.md` and confirm or adjust the **Proposed** items. — **Open**
+1. **Trend definition:** which trend measure should be researched first? — **Open**
+2. **PCR definition:** use OI-based PCR, volume-based PCR, or compare both? — **Open**
+3. **Hedged structures:** which structures should be included in the first research batch? — **Open**
+4. **Strike/expiry selection:** what selection rules should be investigated? — **Open**
+5. **Trend reversal:** how should a reversal be confirmed? — **Open**
+6. **Daily loss limit:** does the proposed ₹5,000 limit include unrealized P&L, charges, and slippage? — **Open**
+7. **Existing positions:** what should happen to open positions when the daily loss limit is reached? — **Open**
+8. **Historical data:** what permitted NIFTY options data is available at five-minute resolution, for what date range, and at what cost? — **Open**
+9. **Evaluation criteria:** beyond the aspirational win-rate goal above 55%, what drawdown, profit factor, net return, and trade-count requirements should be considered? — **Open**
+10. **Risk scope:** does the proposed ₹5,000 per-trade loss limit apply per leg, per strategy position, or to the complete strategy? — **Open**
 
-If none of these are currently needed for the next safe task, proceed with independent research/documentation and keep the unanswered items visible. Do not invent answers.
+If none of these are currently needed for the next safe task, proceed with independent research/documentation and keep the unanswered items visible.
+
+## Blockers and risks
+
+- **Historical NIFTY options data availability, granularity, licensing, and cost are unverified** (owner question 8). This gates all research; verification is a Phase 2 task. Data availability is not assumed.
+- **Ten owner questions are open** (above); several definitions (trend, PCR, risk-limit semantics) block Phases 3–5.
+- **No application code or tests exist yet** — nothing to run; Phase 1 was documentation-only by design. Test infrastructure is deferred until code exists.
+- Strategy entry, strike selection, exit, reversal, and adjustment rules are not yet defined.
+- Broker API capabilities, permissions, rate limits, and costs must be checked against current official documentation before implementation.
+- Six months of historical data is only an initial suggestion; sufficiency must be evaluated rather than assumed.
+
+## How to run and test
+
+- **Application code:** none exists yet (Phase 1 was documentation-only). Nothing to install, run, or build.
+- **Tests:** none exist and none were run — Phase 1 changed no code, so per `Prompts.md` Phase 1 task 9 no unit tests were added. Test commands will be documented when code exists (Phases 2–3).
+- **Documentation verification:** review the files in `docs/` and inspect this phase's changes with `git show` / `git diff`.
+- **Database setup:** not applicable yet (planned for Phase 2; see Architecture direction).
+- **Configuration/secrets:** no secrets exist in the repo. Future configuration uses an ignored local `.env` plus a sanitized `.env.example`; never commit secrets.
+
+## Phase tracker
+
+| Phase | Name | Status | Exit gate |
+|---|---|---|---|
+| 1 | Requirements & Research Design | **Docs complete — gate pending trader review** | Requirements reviewed, open questions tracked, data feasibility plan documented |
+| 2 | Data Access & Market Data Foundation | Planned | Reproducible ingestion and data-quality checks |
+| 3 | Indicator & Signal Research | Planned | Tested calculations, explainable signals, no look-ahead leakage |
+| 4 | Strategy Definition & Backtesting Engine | Planned | Realistic costs, reproducible runs, out-of-sample evaluation |
+| 5 | Risk Engine & Safety Controls | Planned | Independent risk checks and failure-mode tests |
+| 6 | Trader Dashboard & Manual Decision Support | Planned | Explainable signals, visible data freshness, human control |
+| 7 | Paper Trading & Operational Validation | Planned | No real orders, auditable simulation, readiness review |
+| 8 | Controlled Broker Integration & Future Automation | Gated / conditional | Explicit authorization, risk sign-off, reconciliation and rollback tests |
+
+The agent must keep these statuses synchronized with actual work. Do not mark a phase complete because its documents or scaffolding exist; acceptance criteria must be met. Phase 1's documentation acceptance criteria are met; its exit gate additionally requires trader review, which is pending (see Owner action required).
+
+## Latest test results
+
+- **Status:** Not applicable — the repository contains no code and no tests.
+- No tests are claimed as passed. Every future update must state the exact command run and the actual outcome; if tests were not run, say why.
 
 ## Project overview
 
@@ -54,7 +92,7 @@ NIFTY QuantLab aims to provide a disciplined workflow:
 
 ### Initial assumptions and preferences
 
-These are **proposed starting points**, not validated trading rules:
+These are **proposed starting points**, not validated trading rules (full classification in `docs/requirements.md`):
 
 - Instrument: NIFTY 50 options.
 - Strategy family: hedged option selling.
@@ -66,21 +104,6 @@ These are **proposed starting points**, not validated trading rules:
 - Win-rate goal: above 55%, not a guarantee and not a sufficient measure of profitability.
 - Historical dataset: none confirmed at project start.
 - Initial control: all entries/exits remain human-controlled; no automated live order submission.
-
-## Phase tracker
-
-| Phase | Name | Status | Exit gate |
-|---|---|---|---|
-| 1 | Requirements & Research Design | Planned | Requirements reviewed, open questions tracked, data feasibility plan documented |
-| 2 | Data Access & Market Data Foundation | Planned | Reproducible ingestion and data-quality checks |
-| 3 | Indicator & Signal Research | Planned | Tested calculations, explainable signals, no look-ahead leakage |
-| 4 | Strategy Definition & Backtesting Engine | Planned | Realistic costs, reproducible runs, out-of-sample evaluation |
-| 5 | Risk Engine & Safety Controls | Planned | Independent risk checks and failure-mode tests |
-| 6 | Trader Dashboard & Manual Decision Support | Planned | Explainable signals, visible data freshness, human control |
-| 7 | Paper Trading & Operational Validation | Planned | No real orders, auditable simulation, readiness review |
-| 8 | Controlled Broker Integration & Future Automation | Gated / conditional | Explicit authorization, risk sign-off, reconciliation and rollback tests |
-
-The agent must keep these statuses synchronized with actual work. Do not mark a phase complete because its documents or scaffolding exist; acceptance criteria must be met.
 
 ## Architecture direction
 
@@ -96,7 +119,7 @@ Keep responsibilities separated:
 - **Dashboard:** signal explanations, risk estimates, data freshness, manual decisions and audit history.
 - **Broker integration:** disabled by default and gated behind explicit approval.
 
-Do not adopt this architecture blindly if the repository already contains a sound implementation. Inspect first and document any changes.
+Do not adopt this architecture blindly if the repository already contains a sound implementation. Inspect first and document any changes. (No stack decision has been made yet — see `docs/DECISIONS.md` D5.)
 
 ## Safety principles
 
@@ -120,46 +143,23 @@ Do not adopt this architecture blindly if the repository already contains a soun
 
 `Prompts.md` contains the complete scope, tasks, acceptance criteria, and permanent rules for all eight phases.
 
-## How to run and test
-
-> Commands are not yet verified against a concrete implementation. The agent must replace this note with exact commands after inspecting the repository and confirming the stack.
-
-- **Install:** Not documented yet.
-- **Run:** Not documented yet.
-- **Tests:** Not documented yet.
-- **Database setup:** Not documented yet.
-- **Configuration:** Use an ignored local `.env` file and a sanitized `.env.example`; never commit secrets.
-
-## Latest test results
-
-- **Status:** Not yet verified.
-- No tests are claimed as passed by this starter README.
-- Every future update must state the exact command run and actual outcome. If tests were not run, say why.
-
-## Blockers and risks
-
-- Historical NIFTY options data availability, granularity, licensing and cost are not yet verified.
-- Strategy entry, strike selection, exit, reversal and adjustment rules are not yet defined.
-- The proposed daily/per-trade loss limits need exact operational definitions.
-- Broker API capabilities, permissions, rate limits and costs must be checked against current official documentation before implementation.
-- Six months of historical data is only an initial suggestion; sufficiency must be evaluated rather than assumed.
-
 ## Repository documentation
 
-- [`Prompts.md`](Prompts.md) — Complete phase prompts and operating rules for Arena.
-- `CHANGELOG.md` — Dated record of meaningful changes.
-- `docs/requirements.md` — Requirements and unresolved decisions (to be created/maintained in Phase 1).
-- `docs/strategy-hypotheses.md` — Research hypotheses (to be created/maintained in Phase 1).
-- `docs/indicator-specification.md` — Indicator definitions (to be created/maintained in Phase 1).
-- `docs/risk-policy-draft.md` — Draft risk policy (to be created/maintained in Phase 1).
-- `docs/data-feasibility.md` — Data source assessment (to be created/maintained in Phase 1).
-- `docs/backtest-methodology.md` — Backtesting methodology (to be created/maintained in Phase 1).
-- `docs/phase-gates.md` — Phase entry/exit criteria (to be created/maintained in Phase 1).
+- [`Prompts.md`](Prompts.md) — complete phase prompts and operating rules for Arena.
+- [`CHANGELOG.md`](CHANGELOG.md) — dated record of meaningful changes.
+- [`docs/requirements.md`](docs/requirements.md) — requirements classified Confirmed / Proposed / Unknown / Blocked; out-of-scope; acceptance self-check.
+- [`docs/strategy-hypotheses.md`](docs/strategy-hypotheses.md) — research hypotheses (unvalidated by design).
+- [`docs/indicator-specification.md`](docs/indicator-specification.md) — indicator definitions (explicit or Unknown).
+- [`docs/risk-policy-draft.md`](docs/risk-policy-draft.md) — draft risk policy and unresolved loss-limit semantics.
+- [`docs/data-feasibility.md`](docs/data-feasibility.md) — required data fields, coverage needs, candidate sources to verify, gaps.
+- [`docs/backtest-methodology.md`](docs/backtest-methodology.md) — backtest metrics and look-ahead/overfitting safeguards.
+- [`docs/phase-gates.md`](docs/phase-gates.md) — entry/exit criteria for all phases.
+- [`docs/DECISIONS.md`](docs/DECISIONS.md) — record of meaningful technical/product decisions and reasons.
 
 ## Changelog and decision logging
 
 After every meaningful task or phase, update:
-1. This README's **Current status**, **Latest developments**, **Owner action required**, **Blockers and risks**, **Latest test results**, and **Phase tracker**.
+1. This README's **Current status**, **Latest developments**, **Owner action required**, **Blockers and risks**, **How to run and test**, **Latest test results**, and **Phase tracker**.
 2. `CHANGELOG.md` with the date, changes, tests, and remaining work.
 3. `docs/DECISIONS.md` when a meaningful technical or product decision is made.
 
